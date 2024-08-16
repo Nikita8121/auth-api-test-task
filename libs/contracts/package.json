@@ -1,0 +1,15 @@
+{
+    "name": "@contracts/contracts",
+    "version": "0.0.1",
+    "description": "",
+    "main": "./build/index.js",
+    "scripts": {
+        "prepublish": "rm -rf build && tsc",
+        "build": "tsc"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "zod": "^3.22.4"
+    }
+}
