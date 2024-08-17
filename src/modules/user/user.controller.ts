@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserSessionInfo } from 'src/common/decorators/user.decorator';
 import { JwtPayload } from '../auth/type/jwtPlayload.type';
-import { GetUserInfoContractQuery } from 'libs/contracts/commands/user';
+import { GetUserInfoContractQuery } from 'libs/contracts';
 import { errorHandler } from 'src/common/helpers/error-handler.helper';
 
 @Controller('user')

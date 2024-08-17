@@ -91,7 +91,7 @@ export class TokenService {
 
       const payload: JwtPayload = {
         userId,
-        deviceId: AuthTokenEntity.generateDeviceId(),
+        deviceId: deviceId,
       };
 
       const tokens = await this.generateTokens(payload);

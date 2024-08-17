@@ -31,7 +31,7 @@ export class UserRepository implements ICrud<UserEntity> {
   }
 
   async delete(
-    id: string,
+    id: number,
     transaction?: Prisma.TransactionClient,
   ): Promise<UserEntity> {
     const prisma = transaction || this.prismaService;
@@ -40,15 +40,13 @@ export class UserRepository implements ICrud<UserEntity> {
   }
 
   async findById(
-    id: string,
+    id: number,
     transaction?: Prisma.TransactionClient,
-  ): Promise<UserEntity> {
+  ): Promise<UserEntity | null> {
     const prisma = transaction || this.prismaService;
     const model = await prisma.user.findUnique({ where: { id } });
-    if (!model) {
-      throw new Error('User not found');
-    }
-    return new UserEntity(model);
+
+    return model ? new UserEntity(model) : null;
   }
 
   async listAndCount(
@@ -70,12 +68,8 @@ export class UserRepository implements ICrud<UserEntity> {
     return [users.map((user) => new UserEntity(user)), total];
   }
 
-  async findByCriteria(
-    dto: Partial<UserEntity>,
-    transaction?: Prisma.TransactionClient,
-  ): Promise<UserEntity[]> {
-    const prisma = transaction || this.prismaService;
-    const users = await prisma.user.findMany({ where: dto });
+  async findByCriteria(dto: Partial<UserEntity>): Promise<UserEntity[]> {
+    const users = await this.prismaService.user.findMany({ where: dto });
     return users.map((user) => new UserEntity(user));
   }
 }

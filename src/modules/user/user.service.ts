@@ -60,5 +60,30 @@ export class UserService {
     }
   }
 
-  async findUserById(id: number): Promise<ICommandResponse<UserEntity>> {}
+  async findUserById(id: number): Promise<ICommandResponse<UserEntity>> {
+    try {
+      const user = await this.userRepository.findById(id);
+
+      if (!user) {
+        this.logger.log(`User not found by id: ${id}`);
+        return {
+          isSuccess: false,
+          code: ERRORS.USER_NOT_FOUND.code,
+          message: ERRORS.USER_NOT_FOUND.message,
+        };
+      }
+
+      return {
+        isSuccess: true,
+        data: user,
+      };
+    } catch (error) {
+      this.logger.error(`Failed to find user by id: ${error}`);
+      return {
+        isSuccess: false,
+        code: ERRORS.USER_NOT_FOUND.code,
+        message: ERRORS.USER_NOT_FOUND.message,
+      };
+    }
+  }
 }

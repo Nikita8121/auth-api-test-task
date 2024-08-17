@@ -14,8 +14,8 @@ export class AuthService {
   private pepper: string;
 
   constructor(
-    private readonly configService: ConfigService,
     private readonly tokenService: TokenService,
+    private readonly configService: ConfigService,
     private readonly userService: UserService,
   ) {
     this.pepper = this.configService.getOrThrow('JWT_SECRET');

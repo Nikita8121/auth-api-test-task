@@ -37,7 +37,8 @@ export function errorHandlerWithNull<T>(
       return null;
     }
     return errorHandler(response);
-  } else {
-    return errorHandler(response);
   }
+
+  errorHandler(response);
+  return null;
 }
